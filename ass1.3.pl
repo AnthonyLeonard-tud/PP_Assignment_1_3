@@ -152,6 +152,13 @@ moveRowElements(B,[H|T], RowToMoveFromTemp, RowToMoveTo):-
     writeln('AAA').
 
 %% order_blocks([[b,c,f],[a,d,g],[h,e]], [a],N).
-order_blocks(B, [H|T],N):- 
-    moveAllBlocksToRow1(B, N, 1)
-    .
+%%% order_blocks(B, [H|T],N):- 
+%%% moveAllBlocksToRow1(B, N, 1)
+%%% order_blocks(B, [H|T],N)
+
+%% STUCK here !! Cannot get the loops above to enter and clear the 3rd row, and more to the point retain the fact that is has happened in blocks...
+%% to move on, going to asume the move has happened and now blocks looks like this...
+%% [[b,c,f],[a,d,g],[h,e]]
+%% blocks move one at a time, so order reversed
+%% [[b,c,f,g,d,a,e,h],[],[]]
+
