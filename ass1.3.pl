@@ -162,3 +162,4 @@ moveRowElements(B,[H|T], RowToMoveFromTemp, RowToMoveTo):-
 %% blocks move one at a time, so order reversed
 %% [[b,c,f,g,d,a,e,h],[],[]]
 
+%%% Abandoning at this point 10+ Hours in!!!
