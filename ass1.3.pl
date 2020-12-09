@@ -129,12 +129,27 @@ concatenate([],A,A).
 concatenate([A|B], C, [A|D]):-concatenate(B,C,D). 
 
 %% moveAllBlocksToRow1([[b,c,f],[a,d,g],[h,e]] , N, 1 ).
-moveAllBlocksToRow1(B, N, RowToMoveTo):- RowToMoveFromTemp is RowToMoveTo + 1, moveOtherRows(B,N,RowToMoveFromTemp,RowToMoveTo).
+moveAllBlocksToRow1(B, N, RowToMoveTo):-
+    RowToMoveFromTemp is RowToMoveTo + 1,
+    moveOtherRows(B,N,RowToMoveFromTemp,RowToMoveTo),
+    writeln('CCC').
 
-moveOtherRows(B,N,RowToMoveFromTemp,RowToMoveTo):-rowN(B,RowToMoveFromTemp,X), writeln(X), list_reverse(X,Y),writeln(Y),moveRowElements(B,Y,RowToMoveFromTemp, RowToMoveTo). 
+moveOtherRows(B,N,RowToMoveFromTemp,RowToMoveTo):-
+    rowN(B,RowToMoveFromTemp,X), 
+    writeln(X),
+    list_reverse(X,Y),
+    writeln(Y),
+    moveRowElements(B,Y,RowToMoveFromTemp, RowToMoveTo),
+    writeln('BBB').
 
-%% moveRowElements(B,N,[_]).
-moveRowElements(B,[H|T], RowToMoveFromTemp, RowToMoveTo):-writeln(H),writeln(T),moveblock(B, H, RowToMoveFromTemp, RowToMoveTo, Out ), writeln(T), moveRowElements(Out,T, RowToMoveFromTemp, RowToMoveTo).
+moveRowElements(B,[],_,_).
+moveRowElements(B,[H|T], RowToMoveFromTemp, RowToMoveTo):-
+    writeln(H),
+    writeln(T),
+    moveblock(B, H, RowToMoveFromTemp, RowToMoveTo, Out ), 
+    writeln(T), 
+    moveRowElements(Out,T, RowToMoveFromTemp, RowToMoveTo),
+    writeln('AAA').
 
 %% order_blocks([[b,c,f],[a,d,g],[h,e]], [a],N).
 order_blocks(B, [H|T],N):- 
