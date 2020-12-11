@@ -162,4 +162,18 @@ moveRowElements(B,[H|T], RowToMoveFromTemp, RowToMoveTo):-
 %% blocks move one at a time, so order reversed
 %% [[b,c,f,g,d,a,e,h],[],[]]
 
-%%% Abandoning at this point 10+ Hours in!!!
+%%% Abandoning my attempts here...
+
+%% found an implementation on stackoverflow, here...
+%% from "https://stackoverflow.com/questions/61550755/block-world-problem-search-runs-out-of-stack-space"
+%% and have a working test in it running, but non of the work there is my own...
+
+%% to test...
+%% >swipl test1.pl
+%% %% and then run the test, with the blocks setup as per "[[b,c,f],[a,d,g],[h,e]]"
+%% >rt  
+
+%% the above is not correct however as 
+%% 1) the stack is hardwired to be re-built on col 2, the one with "a" as the root!
+%% 2) the starting stack state is hardwired into the test case
+%% 3) 
