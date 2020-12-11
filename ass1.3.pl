@@ -176,4 +176,5 @@ moveRowElements(B,[H|T], RowToMoveFromTemp, RowToMoveTo):-
 %% the above is not correct however as 
 %% 1) the stack is hardwired to be re-built on col 2, the one with "a" as the root!
 %% 2) the starting stack state is hardwired into the test case
-%% 3) 
+%% 3) no counting of the number of moves in the final proposed soln.
+%% 4) TAKES ABOUT 20 MINS TO RUN ON MY MACHINE
