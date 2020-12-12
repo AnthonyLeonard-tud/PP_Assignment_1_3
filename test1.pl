@@ -70,6 +70,7 @@ debug_path(Path) :-
 % Moving blocks between three stacks, also recording the move
 % ===
 
+/*
 move(state(on(X, A), B, C), 
      state(A, on(X, B), C),
      moved(X,"A->B")).
@@ -93,6 +94,40 @@ move(state(A, B, on(X, C)),
 move(state(A, B, on(X, C)), 
      state(A, on(X, B), C),
      moved(X,"C->B")).
+*/
+
+move(From,To,Moved) :-
+    random_permutation([0,1,2,3,4,5],ONs),  % permute order numbers
+    !,                                      % no backtracking past here!
+    move_randomly(ONs,From,To,Moved).       % try to match a move 
+ 
+ move_randomly([ON|___],From,To,Moved) :- move(ON,From,To,Moved).
+ move_randomly([__|ONs],From,To,Moved) :- move_randomly(ONs,From,To,Moved).
+ move_randomly([],_,_,_)               :- debug(pather,"No more moves",[]).
+ 
+ move(0,state(on(X, A), B, C), 
+      state(A, on(X, B), C),
+      moved(X,"0: A->B")).
+ 
+ move(1,state(on(X, A), B, C), 
+      state(A, B, on(X, C)),
+      moved(X,"1: A->C")).
+ 
+ move(2,state(A, on(X, B), C), 
+      state(on(X, A), B, C),
+      moved(X,"2: B->A")).
+ 
+ move(3,state(A, on(X, B), C), 
+      state(A, B, on(X, C)),
+      moved(X,"3: B->C")).
+ 
+ move(4,state(A, B, on(X, C)), 
+      state(on(X, A), B, C),
+      moved(X,"4: C->A")).
+ 
+ move(5,state(A, B, on(X, C)), 
+      state(A, on(X, B), C),
+      moved(X,"5: C->B")).
 
 move(_,_,_,_) :- debug(pather,"No more moves",[]).
 
@@ -145,19 +180,29 @@ path(I,F,Path) :-
 
 :- begin_tests(pather).
 
-test(five, true(Path = 
+/*
+test(six, true(Path = 
         [state(void, void, on(c,on(a,on(b,void)))),
                         state(void, on(c,void), on(void(a,on(b,void)))),
                         state(on(a,void), on(c,void), on(b,void)),
                         state(on(b,on(a,void)), on(c,void), void),
                         state(on(c,on(b,on(a,void))), void, void),
-                        state(void,void,void)
+                        state(on(f,on(c,on(b,void))), on(g,on(d,on(a,void))), on(e,on(h,void)))
         ]
     ))
-
      :- I = state(on(f,on(c,on(b,void))), on(g,on(d,on(a,void))), on(e,on(h,void))),
         F = state(void, on(g, on(f, on(e, on(d, on(c,on(b,on(a,void))))))), void),
         path(I,F,Path).
+*/
+test(one, true(Path = 
+        [
+            state(void, on(h,on(g,on(f,on(e,on(d,on(c,on(b, on(a,void)))))))), void)
+        ]
+    ))
+     :- I = state(on(f,on(c,on(b,void))), on(g,on(d,on(a,void))), on(e,on(h,void))),
+        F = state(void, on(h,on(g,on(f,on(e,on(d,on(c,on(b, on(a,void)))))))), void),
+        path(I,F,Path).
+
 
 :- end_tests(pather).
 
